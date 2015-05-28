@@ -5,6 +5,7 @@ from djlibcloud.storage import LibCloudPrivateStorage, LibCloudStorage
 
 
 CONTENTFILES_SSL = getattr(settings, 'CONTENTFILES_SSL', False)
+CONTENTFILES_HOSTNAME = getattr(settings, 'CONTENTFILES_HOSTNAME', None)
 
 
 class ContentFilesMixin(object):
@@ -26,7 +27,13 @@ class ContentFilesMixin(object):
 class MediaStorage(ContentFilesMixin, LibCloudStorage):
     def url(self, name):
         protocol = 'https' if CONTENTFILES_SSL else 'http'
-        return '%s://%s.contentfiles.net/media/%s' % (protocol, self.path_name, name)
+
+        if CONTENTFILES_HOSTNAME is None:
+            hostname = '%s.contentfiles.net' % (self.path_name,)
+        else:
+            hostname = CONTENTFILES_HOSTNAME
+
+        return '%s://%s/media/%s' % (protocol, hostname, name)
 
 
 class PrivateStorage(ContentFilesMixin, LibCloudPrivateStorage):
