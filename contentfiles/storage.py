@@ -1,6 +1,7 @@
-from django.conf import settings
-from djlibcloud.storage import LibCloudStorage, LibCloudPrivateStorage
 import os.path
+
+from django.conf import settings
+from djlibcloud.storage import LibCloudPrivateStorage, LibCloudStorage
 
 
 CONTENTFILES_SSL = getattr(settings, 'CONTENTFILES_SSL', False)
