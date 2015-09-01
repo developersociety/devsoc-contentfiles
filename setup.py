@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='blanc-contentfiles',
-    version='0.1.1',
+    version='0.1.2',
     description='Blanc Content Files',
     long_description=open('README.rst').read(),
     url='https://github.com/blancltd/blanc-contentfiles',
