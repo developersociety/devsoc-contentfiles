@@ -1,6 +1,7 @@
 import os.path
 
 from django.conf import settings
+from django.utils.six.moves import urllib
 from djlibcloud.storage import LibCloudPrivateStorage, LibCloudStorage
 
 
@@ -33,7 +34,7 @@ class MediaStorage(ContentFilesMixin, LibCloudStorage):
         else:
             hostname = CONTENTFILES_HOSTNAME
 
-        return '%s://%s/media/%s' % (protocol, hostname, name)
+        return '%s://%s/media/%s' % (protocol, hostname, urllib.parse.quote(name))
 
 
 class PrivateStorage(ContentFilesMixin, LibCloudPrivateStorage):
