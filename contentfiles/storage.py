@@ -44,4 +44,5 @@ class PrivateStorage(ContentFilesMixin, LibCloudPrivateStorage):
     def url(self, name):
         protocol = 'https' if CONTENTFILES_SSL else 'http'
         return '%s://%s/%s/%s/%s' % (
-            protocol, self.driver.connection.host, self.bucket, self.path_name, name)
+            protocol, self.driver.connection.host, self.bucket, self.path_name,
+            urllib.parse.quote(name))
