@@ -1,48 +1,39 @@
-import os.path
+from __future__ import unicode_literals
+
+import os
 
 from django.conf import settings
 from django.utils.six.moves import urllib
-from djlibcloud.storage import LibCloudPrivateStorage, LibCloudStorage
+from storages.backends.s3boto import S3BotoStorage
 
 
 CONTENTFILES_SSL = getattr(settings, 'CONTENTFILES_SSL', False)
+CONTENTFILES_PREFIX = getattr(settings, 'CONTENTFILES_PREFIX')
 CONTENTFILES_HOSTNAME = getattr(settings, 'CONTENTFILES_HOSTNAME', None)
 
 
-class ContentFilesMixin(object):
-    def __init__(self, *args, **kwargs):
-        super(ContentFilesMixin, self).__init__(*args, **kwargs)
-        self.path_name = self.provider['path_name']
-
-    def _clean_name(self, name):
-        clean_name = super(ContentFilesMixin, self)._clean_name(name)
-        clean_name = os.path.join(self.path_name, clean_name)
-        return clean_name
-
-    def _save(self, name, content):
-        full_name = os.path.join(self.path_name, name)
-        super(ContentFilesMixin, self)._save(full_name, content)
-        return name
+class BaseContentFilesStorage(S3BotoStorage):
+    location = '%s/' % (CONTENTFILES_PREFIX,)
+    access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+    secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    file_overwrite = False
 
 
-class MediaStorage(ContentFilesMixin, LibCloudStorage):
+class MediaStorage(BaseContentFilesStorage):
+    bucket_name = os.environ.get('CONTENTFILES_DEFAULT_BUCKET')
+
     def url(self, name):
         protocol = 'https' if CONTENTFILES_SSL else 'http'
 
         if CONTENTFILES_HOSTNAME is None:
-            hostname = '%s.contentfiles.net' % (self.path_name,)
+            hostname = '%s.contentfiles.net' % (CONTENTFILES_PREFIX,)
         else:
             hostname = CONTENTFILES_HOSTNAME
 
         return '%s://%s/media/%s' % (protocol, hostname, urllib.parse.quote(name))
 
 
-class PrivateStorage(ContentFilesMixin, LibCloudPrivateStorage):
-    def __init__(self, provider_name='private', *args, **kwargs):
-        return super(PrivateStorage, self).__init__(provider_name, *args, **kwargs)
-
-    def url(self, name):
-        protocol = 'https' if CONTENTFILES_SSL else 'http'
-        return '%s://%s/%s/%s/%s' % (
-            protocol, self.driver.connection.host, self.bucket, self.path_name,
-            urllib.parse.quote(name))
+class PrivateStorage(BaseContentFilesStorage):
+    bucket_name = os.environ.get('CONTENTFILES_PRIVATE_BUCKET')
+    default_acl = 'private'
+    querystring_expire = 300

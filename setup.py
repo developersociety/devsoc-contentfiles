@@ -11,7 +11,7 @@ setup(
     maintainer_email='alex@blanc.ltd.uk',
     platforms=['any'],
     install_requires=[
-        'dj-libcloud>=0.2.0',
+        'django-storages-redux>=1.3',
     ],
     packages=find_packages(),
     classifiers=[
