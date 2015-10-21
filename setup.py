@@ -10,9 +10,6 @@ setup(
     maintainer='Alex Tomkins',
     maintainer_email='alex@blanc.ltd.uk',
     platforms=['any'],
-    install_requires=[
-        'django-storages-redux>=1.3',
-    ],
     packages=find_packages(),
     classifiers=[
         'Environment :: Web Environment',
