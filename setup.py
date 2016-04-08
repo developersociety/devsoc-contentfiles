@@ -1,11 +1,18 @@
 #!/usr/bin/env python
+from codecs import open
+
 from setuptools import find_packages, setup
+
+
+with open('README.rst', 'r', 'utf-8') as f:
+    readme = f.read()
+
 
 setup(
     name='blanc-contentfiles',
     version='0.2.1',
     description='Blanc Content Files',
-    long_description=open('README.rst').read(),
+    long_description=readme,
     url='https://github.com/blancltd/blanc-contentfiles',
     maintainer='Blanc Ltd',
     maintainer_email='studio@blanc.ltd.uk',
