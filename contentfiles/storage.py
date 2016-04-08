@@ -30,7 +30,8 @@ class MediaStorage(BaseContentFilesStorage):
         else:
             hostname = CONTENTFILES_HOSTNAME
 
-        return '%s://%s/media/%s' % (protocol, hostname, urllib.parse.quote(name))
+        return '%s://%s/media/%s' % (
+            protocol, hostname, urllib.parse.quote(name.encode('utf-8')))
 
 
 class PrivateStorage(BaseContentFilesStorage):
