@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 import os
 
 from django.conf import settings
-from django.core.files.storage import get_storage_class
-from django.utils.functional import LazyObject
+from django.core.files.storage import DefaultStorage
 from django.utils.six.moves import urllib
+
 from storages.backends.s3boto import S3BotoStorage
 
 
@@ -36,17 +36,20 @@ class MediaStorage(BaseContentFilesStorage):
             protocol, hostname, urllib.parse.quote(name.encode('utf-8')))
 
 
-class BasePrivateStorage(BaseContentFilesStorage):
+class RemotePrivateStorage(BaseContentFilesStorage):
     bucket_name = os.environ.get('CONTENTFILES_PRIVATE_BUCKET')
     default_acl = 'private'
     querystring_expire = 300
 
 
-class PrivateStorage(LazyObject):
-    def _setup(self):
-        private_bucket = os.environ.get('CONTENTFILES_PRIVATE_BUCKET')
+if os.environ.get('CONTENTFILES_PRIVATE_BUCKET') is not None:
+    BasePrivateStorage = RemotePrivateStorage
+else:
+    BasePrivateStorage = DefaultStorage
 
-        if private_bucket is not None:
-            self._wrapped = BasePrivateStorage()
-        else:
-            self._wrapped = get_storage_class()()
+
+class PrivateStorage(BasePrivateStorage):
+    pass
+
+
+private_storage = PrivateStorage()
