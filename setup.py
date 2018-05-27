@@ -14,8 +14,8 @@ setup(
     description='Blanc Content Files',
     long_description=readme,
     url='https://github.com/developersociety/blanc-contentfiles',
-    maintainer='Blanc Ltd',
-    maintainer_email='studio@blanc.ltd.uk',
+    maintainer='The Developer Society',
+    maintainer_email='studio@dev.ngo',
     platforms=['any'],
     packages=find_packages(),
     classifiers=[
