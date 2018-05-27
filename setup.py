@@ -13,7 +13,7 @@ setup(
     version='0.2.4',
     description='Blanc Content Files',
     long_description=readme,
-    url='https://github.com/blancltd/blanc-contentfiles',
+    url='https://github.com/developersociety/blanc-contentfiles',
     maintainer='Blanc Ltd',
     maintainer_email='studio@blanc.ltd.uk',
     platforms=['any'],
