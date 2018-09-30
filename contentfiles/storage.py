@@ -9,7 +9,7 @@ from django.utils.six.moves import urllib
 from storages.backends.s3boto import S3BotoStorage
 
 
-CONTENTFILES_SSL = getattr(settings, 'CONTENTFILES_SSL', False)
+CONTENTFILES_SSL = getattr(settings, 'CONTENTFILES_SSL', True)
 CONTENTFILES_PREFIX = getattr(settings, 'CONTENTFILES_PREFIX')
 CONTENTFILES_HOSTNAME = getattr(settings, 'CONTENTFILES_HOSTNAME', None)
 
