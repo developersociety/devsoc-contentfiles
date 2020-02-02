@@ -6,12 +6,14 @@ from django.conf import settings
 from django.core.files.storage import DefaultStorage
 from django.utils.six.moves import urllib
 
+from boto.s3.connection import S3Connection
 from storages.backends.s3boto import S3BotoStorage
 
 
 CONTENTFILES_SSL = getattr(settings, 'CONTENTFILES_SSL', True)
 CONTENTFILES_PREFIX = getattr(settings, 'CONTENTFILES_PREFIX')
 CONTENTFILES_HOSTNAME = getattr(settings, 'CONTENTFILES_HOSTNAME', None)
+CONTENTFILES_S3_ENDPOINT = getattr(settings, 'CONTENTFILES_S3_ENDPOINT', S3Connection.DefaultHost)
 
 
 class BaseContentFilesStorage(S3BotoStorage):
@@ -20,6 +22,7 @@ class BaseContentFilesStorage(S3BotoStorage):
     secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
     file_overwrite = False
     default_acl = None  # Use the default ACL from the bucket
+    host = CONTENTFILES_S3_ENDPOINT  # Send requests direct to the region when defined
 
 
 class MediaStorage(BaseContentFilesStorage):
