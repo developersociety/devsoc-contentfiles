@@ -19,6 +19,7 @@ class BaseContentFilesStorage(S3BotoStorage):
     access_key = os.environ.get('AWS_ACCESS_KEY_ID')
     secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
     file_overwrite = False
+    default_acl = None  # Use the default ACL from the bucket
 
 
 class MediaStorage(BaseContentFilesStorage):
@@ -38,7 +39,6 @@ class MediaStorage(BaseContentFilesStorage):
 
 class RemotePrivateStorage(BaseContentFilesStorage):
     bucket_name = os.environ.get('CONTENTFILES_PRIVATE_BUCKET')
-    default_acl = 'private'
     querystring_expire = 300
 
 
