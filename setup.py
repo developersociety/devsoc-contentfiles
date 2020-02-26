@@ -10,7 +10,7 @@ with open('README.rst', 'r', 'utf-8') as f:
 
 setup(
     name='blanc-contentfiles',
-    version='0.2.4',
+    version='0.2.5',
     description='Blanc Content Files',
     long_description=readme,
     url='https://github.com/developersociety/blanc-contentfiles',
