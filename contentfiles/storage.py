@@ -14,7 +14,7 @@ CONTENTFILES_S3_ENDPOINT = getattr(settings, "CONTENTFILES_S3_ENDPOINT", S3Conne
 
 
 class BaseContentFilesStorage(S3BotoStorage):
-    location = "%s/" % (CONTENTFILES_PREFIX,)
+    location = "{}/".format(CONTENTFILES_PREFIX)
     access_key = os.environ.get("AWS_ACCESS_KEY_ID")
     secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
     file_overwrite = False
@@ -29,11 +29,11 @@ class MediaStorage(BaseContentFilesStorage):
         protocol = "https" if CONTENTFILES_SSL else "http"
 
         if CONTENTFILES_HOSTNAME is None:
-            hostname = "%s.contentfiles.net" % (CONTENTFILES_PREFIX,)
+            hostname = "{}.contentfiles.net".format(CONTENTFILES_PREFIX)
         else:
             hostname = CONTENTFILES_HOSTNAME
 
-        return "%s://%s/media/%s" % (protocol, hostname, filepath_to_uri(name))
+        return "{}://{}/media/{}".format(protocol, hostname, filepath_to_uri(name))
 
 
 class RemotePrivateStorage(BaseContentFilesStorage):
