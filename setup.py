@@ -9,11 +9,11 @@ with open('README.rst', 'r', 'utf-8') as f:
 
 
 setup(
-    name='blanc-contentfiles',
+    name='devsoc-contentfiles',
     version='0.2.6',
-    description='Blanc Content Files',
+    description='DEV Content Files',
     long_description=readme,
-    url='https://github.com/developersociety/blanc-contentfiles',
+    url='https://github.com/developersociety/devsoc-contentfiles',
     maintainer='The Developer Society',
     maintainer_email='studio@dev.ngo',
     platforms=['any'],
