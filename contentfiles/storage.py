@@ -4,22 +4,24 @@ from django.conf import settings
 from django.core.files.storage import DefaultStorage
 from django.utils.encoding import filepath_to_uri
 
-from boto.s3.connection import S3Connection
-from storages.backends.s3boto import S3BotoStorage
+from storages.backends.s3boto3 import S3Boto3Storage
 
 CONTENTFILES_SSL = getattr(settings, "CONTENTFILES_SSL", True)
 CONTENTFILES_PREFIX = getattr(settings, "CONTENTFILES_PREFIX")
 CONTENTFILES_HOSTNAME = getattr(settings, "CONTENTFILES_HOSTNAME", None)
-CONTENTFILES_S3_ENDPOINT = getattr(settings, "CONTENTFILES_S3_ENDPOINT", S3Connection.DefaultHost)
+CONTENTFILES_S3_ENDPOINT_URL = getattr(settings, "CONTENTFILES_S3_ENDPOINT_URL", None)
+CONTENTFILES_S3_REGION = getattr(settings, "CONTENTFILES_S3_REGION", None)
 
 
-class BaseContentFilesStorage(S3BotoStorage):
+class BaseContentFilesStorage(S3Boto3Storage):
     location = "{}/".format(CONTENTFILES_PREFIX)
     access_key = os.environ.get("AWS_ACCESS_KEY_ID")
     secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
     file_overwrite = False
     default_acl = None  # Use the default ACL from the bucket
-    host = CONTENTFILES_S3_ENDPOINT  # Send requests direct to the region when defined
+    addressing_style = "virtual"
+    endpoint_url = CONTENTFILES_S3_ENDPOINT_URL  # Send requests direct to the region when defined
+    region_name = CONTENTFILES_S3_REGION  # Define the region to allow signed URLs to fully work
 
 
 class MediaStorage(BaseContentFilesStorage):
