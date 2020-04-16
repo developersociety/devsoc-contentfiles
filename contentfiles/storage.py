@@ -9,7 +9,6 @@ from django.utils.encoding import filepath_to_uri
 from boto.s3.connection import S3Connection
 from storages.backends.s3boto import S3BotoStorage
 
-
 CONTENTFILES_SSL = getattr(settings, 'CONTENTFILES_SSL', True)
 CONTENTFILES_PREFIX = getattr(settings, 'CONTENTFILES_PREFIX')
 CONTENTFILES_HOSTNAME = getattr(settings, 'CONTENTFILES_HOSTNAME', None)
