@@ -4,7 +4,7 @@ import os
 
 from django.conf import settings
 from django.core.files.storage import DefaultStorage
-from django.utils.six.moves import urllib
+from django.utils.encoding import filepath_to_uri
 
 from boto.s3.connection import S3Connection
 from storages.backends.s3boto import S3BotoStorage
@@ -37,7 +37,7 @@ class MediaStorage(BaseContentFilesStorage):
             hostname = CONTENTFILES_HOSTNAME
 
         return '%s://%s/media/%s' % (
-            protocol, hostname, urllib.parse.quote(name.encode('utf-8')))
+            protocol, hostname, filepath_to_uri(name))
 
 
 class RemotePrivateStorage(BaseContentFilesStorage):
