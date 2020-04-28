@@ -10,7 +10,7 @@ with open("README.rst", "r", "utf-8") as f:
 
 setup(
     name="devsoc-contentfiles",
-    version="0.2.6",
+    version="0.3a1",
     description="DEV Content Files",
     long_description=readme,
     url="https://github.com/developersociety/devsoc-contentfiles",
