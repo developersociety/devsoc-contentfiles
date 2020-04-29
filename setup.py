@@ -1,18 +1,20 @@
 #!/usr/bin/env python
-from codecs import open
+import os
 
 from setuptools import find_packages, setup
 
 
-with open("README.rst", "r", "utf-8") as f:
-    readme = f.read()
+def read(filename):
+    with open(os.path.join(os.path.dirname(__file__), filename)) as f:
+        return f.read()
 
 
 setup(
     name="devsoc-contentfiles",
     version="0.3a1",
     description="DEV Content Files",
-    long_description=readme,
+    long_description=read("README.rst"),
+    long_description_content_type="text/x-rst",
     url="https://github.com/developersociety/devsoc-contentfiles",
     maintainer="The Developer Society",
     maintainer_email="studio@dev.ngo",
