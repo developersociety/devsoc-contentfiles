@@ -20,6 +20,7 @@ setup(
     maintainer_email="studio@dev.ngo",
     platforms=["any"],
     packages=find_packages(exclude=["tests"]),
+    include_package_data=True,
     python_requires=">=3.5",
     classifiers=[
         "Environment :: Web Environment",
