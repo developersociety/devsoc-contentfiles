@@ -19,7 +19,7 @@ setup(
     maintainer="The Developer Society",
     maintainer_email="studio@dev.ngo",
     platforms=["any"],
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests"]),
     python_requires=">=3.5",
     classifiers=[
         "Environment :: Web Environment",
