@@ -11,7 +11,7 @@ def read(filename):
 
 setup(
     name="devsoc-contentfiles",
-    version="0.3a1",
+    version="0.3",
     description="DEV Content Files",
     long_description=read("README.rst"),
     long_description_content_type="text/x-rst",
