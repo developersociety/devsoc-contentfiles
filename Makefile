@@ -106,10 +106,10 @@ pip-install-local: venv-check
 
 # ISort
 isort-lint:
-	isort --recursive --check-only --diff contentfiles tests
+	isort --check-only --diff contentfiles tests
 
 isort-format:
-	isort --recursive contentfiles tests
+	isort contentfiles tests
 
 
 # Flake8
