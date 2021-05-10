@@ -10,7 +10,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.9'
       - name: Python pip cache
         uses: actions/cache@v2
         with:
@@ -30,7 +30,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.9'
       - name: Python pip cache
         uses: actions/cache@v2
         with:
@@ -50,6 +50,7 @@ jobs:
           - '3.6'
           - '3.7'
           - '3.8'
+          - '3.9'
         django:
           - '2.2'
       fail-fast: false
