@@ -3,19 +3,19 @@ on: pull_request
 jobs:
   check:
     name: Check
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
       - name: Python pip cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/testing.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/*.txt') }}
       - name: Run check
         run: |
           pip install tox
@@ -23,19 +23,19 @@ jobs:
 
   lint:
     name: Lint
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
       - name: Python pip cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/testing.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/*.txt') }}
       - name: Run lint
         run: |
           pip install tox
@@ -43,7 +43,7 @@ jobs:
 
   test:
     name: Test -- Python ${{ matrix.python }} - Django ${{ matrix.django }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         python:
@@ -62,14 +62,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
       - name: Python pip cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-python${{ matrix.python }}-django${{ matrix.django }}-pip-${{ hashFiles('requirements/testing.txt') }}
+          key: ${{ runner.os }}-python${{ matrix.python }}-django${{ matrix.django }}-pip-${{ hashFiles('requirements/*.txt') }}
       - name: Run tests
         env:
           PYTHON_VERSION: ${{ matrix.python }}
