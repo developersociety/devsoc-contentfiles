@@ -22,11 +22,10 @@ setup(
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
     python_requires=">=3.5",
-    install_requires=["Django>=1.11"],
+    install_requires=["Django>=2.2"],
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Django",
-        "Framework :: Django :: 1.11",
         "Framework :: Django :: 2.2",
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
