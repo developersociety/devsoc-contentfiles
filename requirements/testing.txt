@@ -4,4 +4,4 @@ black==21.5b0
 coverage==5.5
 flake8==3.9.1
 isort==5.8.0
-pipdeptree==2.0.0
+pipdeptree==2.2.0
