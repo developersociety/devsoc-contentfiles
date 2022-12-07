@@ -18,7 +18,7 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/*.txt') }}
       - name: Run check
         run: |
-          pip install tox
+          pip install $(grep "^tox==" requirements/local.txt)
           tox -e check
 
   lint:
@@ -38,7 +38,7 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/*.txt') }}
       - name: Run lint
         run: |
-          pip install tox
+          pip install $(grep "^tox==" requirements/local.txt)
           tox -e lint
 
   test:
@@ -71,5 +71,5 @@ jobs:
         env:
           PYTHON_VERSION: ${{ matrix.python }}
         run: |
-          pip install tox
+          pip install $(grep "^tox==" requirements/local.txt)
           tox -e py${PYTHON_VERSION//./}-django${{ matrix.django }}
