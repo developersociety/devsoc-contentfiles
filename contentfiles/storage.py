@@ -4,10 +4,13 @@ from django.conf import settings
 from django.core.files.storage import DefaultStorage
 from django.utils.encoding import filepath_to_uri
 
-from storages.backends.s3boto3 import S3Boto3Storage
+try:
+    from storages.backends.s3 import S3Storage
+except ImportError:
+    from storages.backends.s3boto3 import S3Boto3Storage as S3Storage
 
 
-class BaseContentFilesStorage(S3Boto3Storage):
+class BaseContentFilesStorage(S3Storage):
     def __init__(self, *args, **kwargs):
         # contentfiles specific settings
         self.contentfiles_prefix = getattr(settings, "CONTENTFILES_PREFIX")
