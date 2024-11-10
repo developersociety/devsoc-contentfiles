@@ -1,6 +1,6 @@
 -r testing.txt
 
-bump2version==1.0.1
+bump-my-version==0.28.1
 Django>=4.2,<5.0
 django-storages[s3]>=1.14
 tox==4.23.2
