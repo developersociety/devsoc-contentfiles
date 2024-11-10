@@ -52,7 +52,7 @@ class MediaStorage(BaseContentFilesStorage):
         return f"{protocol}://{hostname}/media/{filepath_to_uri(name)}"
 
 
-class RemotePrivateStorage(BaseContentFilesStorage):
+class PrivateStorage(BaseContentFilesStorage):
     def __init__(self, *args, **kwargs):
         # Reduced expiry time to prevent URL sharing (but high enough to not expire too quickly)
         self.bucket_name = os.environ.get("CONTENTFILES_PRIVATE_BUCKET")
@@ -61,14 +61,7 @@ class RemotePrivateStorage(BaseContentFilesStorage):
         super().__init__(*args, **kwargs)
 
 
-if os.environ.get("CONTENTFILES_PRIVATE_BUCKET") is not None:
-    BasePrivateStorage = RemotePrivateStorage
-else:
-    BasePrivateStorage = DefaultStorage
-
-
-class PrivateStorage(BasePrivateStorage):
-    pass
-
-
-private_storage = PrivateStorage()
+def private_storage():
+    if os.environ.get("CONTENTFILES_PRIVATE_BUCKET") is not None:
+        return PrivateStorage()
+    return DefaultStorage()

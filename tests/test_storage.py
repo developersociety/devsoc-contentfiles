@@ -1,10 +1,12 @@
 import datetime
+import os
 from unittest import mock
 from urllib import parse
 
+from django.core.files.storage import DefaultStorage
 from django.test import TestCase, override_settings
 
-from contentfiles.storage import MediaStorage, RemotePrivateStorage
+from contentfiles.storage import MediaStorage, PrivateStorage, private_storage
 
 
 class TestMediaStorage(TestCase):
@@ -42,7 +44,7 @@ class TestMediaStorage(TestCase):
     def test_private_storage(self, mock_get_date):
         mock_get_date.return_value = "1234567890"
 
-        storage = RemotePrivateStorage()
+        storage = PrivateStorage()
         storage.access_key = "AKIA1234567890ABCDEF"
         storage.secret_key = "1234567890123456789012345678901234567890"  # noqa:S105
         storage.bucket_name = "demo-bucket"
@@ -72,7 +74,7 @@ class TestMediaStorage(TestCase):
     def test_private_storage_aws4(self, mock_datetime):
         mock_datetime.datetime.utcnow.return_value = datetime.datetime(2020, 1, 1, 12, 34, 56, 0)
 
-        storage = RemotePrivateStorage()
+        storage = PrivateStorage()
         storage.access_key = "AKIA1234567890ABCDEF"
         storage.secret_key = "1234567890123456789012345678901234567890"  # noqa:S105
         storage.bucket_name = "demo-bucket"
@@ -98,3 +100,19 @@ class TestMediaStorage(TestCase):
                 "X-Amz-SignedHeaders": ["host"],
             },
         )
+
+    def test_private_storage_callable(self):
+        storage = private_storage()
+
+        self.assertIsInstance(storage, DefaultStorage)
+
+    @mock.patch.dict(
+        os.environ,
+        {
+            "CONTENTFILES_PRIVATE_BUCKET": "demo",
+        },
+    )
+    def test_private_storage_callable_enabled(self):
+        storage = private_storage()
+
+        self.assertIsInstance(storage, PrivateStorage)
