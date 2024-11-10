@@ -121,7 +121,7 @@ flake8-lint:
 
 
 # Coverage
-coverage-report: coverage-combine coverage-html coverage-xml
+coverage-report: coverage-combine coverage-html
 	coverage report --show-missing
 
 coverage-combine:
@@ -130,12 +130,8 @@ coverage-combine:
 coverage-html:
 	coverage html
 
-coverage-xml:
-	coverage xml
-
 coverage-clean:
 	rm -rf htmlcov
-	rm -f coverage.xml
 	rm -f .coverage
 
 
