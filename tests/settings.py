@@ -4,7 +4,7 @@ DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memor
 
 USE_TZ = True
 
-SECRET_KEY = "contentfiles"
+SECRET_KEY = "contentfiles"  # noqa:S105
 
 if django.VERSION >= (4, 2):
     STORAGES = {

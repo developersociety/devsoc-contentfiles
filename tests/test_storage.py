@@ -44,7 +44,7 @@ class TestMediaStorage(TestCase):
 
         storage = RemotePrivateStorage()
         storage.access_key = "AKIA1234567890ABCDEF"
-        storage.secret_key = "1234567890123456789012345678901234567890"
+        storage.secret_key = "1234567890123456789012345678901234567890"  # noqa:S105
         storage.bucket_name = "demo-bucket"
 
         url = storage.url("test.txt")
@@ -74,7 +74,7 @@ class TestMediaStorage(TestCase):
 
         storage = RemotePrivateStorage()
         storage.access_key = "AKIA1234567890ABCDEF"
-        storage.secret_key = "1234567890123456789012345678901234567890"
+        storage.secret_key = "1234567890123456789012345678901234567890"  # noqa:S105
         storage.bucket_name = "demo-bucket"
 
         url = storage.url("test.txt")

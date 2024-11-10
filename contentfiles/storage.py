@@ -20,7 +20,7 @@ class BaseContentFilesStorage(S3Storage):
         self.contentfiles_s3_region = getattr(settings, "CONTENTFILES_S3_REGION", None)
 
         # django-storages settings
-        self.location = "{}/".format(self.contentfiles_prefix)
+        self.location = f"{self.contentfiles_prefix}/"
         self.access_key = os.environ.get("AWS_ACCESS_KEY_ID")
         self.secret_key = os.environ.get("AWS_SECRET_ACCESS_KEY")
         self.file_overwrite = False
@@ -45,11 +45,11 @@ class MediaStorage(BaseContentFilesStorage):
         protocol = "https" if self.contentfiles_ssl else "http"
 
         if self.contentfiles_hostname is None:
-            hostname = "{}.contentfiles.net".format(self.contentfiles_prefix)
+            hostname = f"{self.contentfiles_prefix}.contentfiles.net"
         else:
             hostname = self.contentfiles_hostname
 
-        return "{}://{}/media/{}".format(protocol, hostname, filepath_to_uri(name))
+        return f"{protocol}://{hostname}/media/{filepath_to_uri(name)}"
 
 
 class RemotePrivateStorage(BaseContentFilesStorage):
