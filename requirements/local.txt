@@ -5,4 +5,3 @@ Django>=4.2,<5.0
 django-storages[s3]>=1.14
 tox==4.23.2
 tox-uv==1.16.0
-twine==5.1.1
