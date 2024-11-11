@@ -1,6 +1,6 @@
 [project]
 name = 'devsoc-contentfiles'
-version = '0.3'
+version = '0.4'
 description = 'DEV Content Files'
 readme = 'README.md'
 maintainers = [{ name = 'The Developer Society', email = 'studio@dev.ngo' }]
