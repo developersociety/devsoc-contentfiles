@@ -13,7 +13,7 @@ except ImportError:
 class BaseContentFilesStorage(S3Storage):
     def __init__(self, *args, **kwargs):
         # contentfiles specific settings
-        self.contentfiles_prefix = getattr(settings, "CONTENTFILES_PREFIX")
+        self.contentfiles_prefix = settings.CONTENTFILES_PREFIX
         self.contentfiles_ssl = getattr(settings, "CONTENTFILES_SSL", True)
         self.contentfiles_hostname = getattr(settings, "CONTENTFILES_HOSTNAME", None)
         self.contentfiles_s3_endpoint_url = getattr(settings, "CONTENTFILES_S3_ENDPOINT_URL", None)

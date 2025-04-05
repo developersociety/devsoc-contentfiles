@@ -72,7 +72,9 @@ class TestMediaStorage(TestCase):
     )
     @mock.patch("botocore.auth.datetime")
     def test_private_storage_aws4(self, mock_datetime):
-        mock_datetime.datetime.utcnow.return_value = datetime.datetime(2020, 1, 1, 12, 34, 56, 0)
+        mock_datetime.datetime.utcnow.return_value = datetime.datetime(
+            2020, 1, 1, 12, 34, 56, 0, tzinfo=datetime.timezone.utc
+        )
 
         storage = PrivateStorage()
         storage.access_key = "AKIA1234567890ABCDEF"
