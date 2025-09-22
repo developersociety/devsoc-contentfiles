@@ -1,10 +1,11 @@
-import datetime
 import os
 from unittest import mock
 from urllib import parse
 
 from django.core.files.storage import DefaultStorage
 from django.test import TestCase, override_settings
+
+import time_machine
 
 from contentfiles.storage import MediaStorage, PrivateStorage, private_storage
 
@@ -70,12 +71,8 @@ class TestMediaStorage(TestCase):
         CONTENTFILES_S3_REGION="eu-west-2",
         CONTENTFILES_S3_ENDPOINT_URL="https://s3.dualstack.eu-west-2.amazonaws.com",
     )
-    @mock.patch("botocore.auth.datetime")
-    def test_private_storage_aws4(self, mock_datetime):
-        mock_datetime.datetime.utcnow.return_value = datetime.datetime(
-            2020, 1, 1, 12, 34, 56, 0, tzinfo=datetime.timezone.utc
-        )
-
+    @time_machine.travel("20200101T123456Z")
+    def test_private_storage_aws4(self):
         storage = PrivateStorage()
         storage.access_key = "AKIA1234567890ABCDEF"
         storage.secret_key = "1234567890123456789012345678901234567890"  # noqa:S105

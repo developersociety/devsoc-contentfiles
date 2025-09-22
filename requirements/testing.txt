@@ -3,4 +3,5 @@ check-wheel-contents==0.6.1
 coverage==7.8.0
 pipdeptree==2.26.0
 ruff==0.11.5
+time-machine==2.19.0
 twine==6.1.0
